@@ -78,4 +78,7 @@ dependencies {
     implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.3.0-rc01")
     //constraintlayout compose
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    //bottomNavigation
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+
 }
