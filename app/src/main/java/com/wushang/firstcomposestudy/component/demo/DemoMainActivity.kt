@@ -82,10 +82,10 @@ fun generateMainFramework() {
             state = pagerState,
             modifier = Modifier.padding(innerPadding)
         ) { pager ->
-            when (pager) {
-                0 -> Home()
-                1 -> Profile()
-                2 -> Setting()
+            when (items[pager]) {
+                NavItem.Home -> Home()
+                NavItem.Profile -> Profile()
+                NavItem.Settings -> Setting()
             }
         }
     }

@@ -2,4 +2,5 @@
     <string name="app_name">FirstComposeStudy</string>
     <string name="first_pic">first pic</string>
     <string name="title_activity_demo_main">DemoMainActivity</string>
+    <string name="title_activity_navigation_demo">NavigationDemoActivity</string>
 </resources>
