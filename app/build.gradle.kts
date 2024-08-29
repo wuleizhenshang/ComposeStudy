@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -78,6 +79,10 @@ dependencies {
     implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.3.0-rc01")
     //constraintlayout compose
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
-    //Navigation导航
+    //Navigation导航 2.7.7不支持序列化安全类型
     implementation("androidx.navigation:navigation-compose:2.7.7")
+    //导入2.8.0支持序列化检查
+    implementation("androidx.navigation:navigation-fragment-compose:2.8.0-rc01")
+    //@Serializable依赖
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 }
