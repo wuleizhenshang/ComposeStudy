@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -41,6 +42,7 @@ import kotlinx.coroutines.launch
 class DemoMainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             generateMainFramework()
         }
@@ -68,7 +70,7 @@ fun generateMainFramework() {
 
     //整体框架
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.safeDrawingPadding().fillMaxSize(),
         //底部导航
         bottomBar = {
             generateBottomNavigation(

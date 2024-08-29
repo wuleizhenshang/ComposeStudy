@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -98,6 +100,7 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             generateDrawer()
         }
@@ -118,7 +121,7 @@ fun generateDrawer() {
         //抽屉部分内容
         drawerContent = {
             //ModalDrawerSheet是一个用于实现模态导航抽屉的组件
-            ModalDrawerSheet (modifier = Modifier.width(250.dp)) {
+            ModalDrawerSheet(modifier = Modifier.width(250.dp)) {
                 Text(text = "Drawer Title", modifier = Modifier.padding(16.dp), color = Color.Black)
                 //NavigationDrawerItem创建侧边导航菜单项
                 NavigationDrawerItem(
@@ -134,7 +137,8 @@ fun generateDrawer() {
             }
         },
         //是否禁止手势操作
-        gesturesEnabled = true
+        gesturesEnabled = true,
+        modifier = Modifier.safeDrawingPadding()
     ) {
         //主屏幕内容
         generateScaffold(drawerState, scope)
@@ -152,49 +156,52 @@ fun generateScaffold(
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     //整体框架
-    Scaffold(bottomBar = {
-        //新加底部Bar
-        BottomAppBar(actions = {
-            IconButton(onClick = { /* do something */ }) {
-                Icon(Icons.Filled.Check, contentDescription = "Localized description")
-            }
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    Icons.Filled.Edit,
-                    contentDescription = "Localized description",
-                )
-            }
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    Icons.Filled.Build,
-                    contentDescription = "Localized description",
-                )
-            }
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    Icons.Filled.ShoppingCart,
-                    contentDescription = "Localized description",
-                )
-            }
-        }, floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    //关闭抽屉
-                    scope.launch {
-                        if (drawerState.isOpen) {
-                            drawerState.close()
-                        } else if (drawerState.isClosed) {
-                            drawerState.open()
+    Scaffold(
+        bottomBar = {
+            //新加底部Bar
+            BottomAppBar(actions = {
+                IconButton(onClick = { /* do something */ }) {
+                    Icon(Icons.Filled.Check, contentDescription = "Localized description")
+                }
+                IconButton(onClick = { /* do something */ }) {
+                    Icon(
+                        Icons.Filled.Edit,
+                        contentDescription = "Localized description",
+                    )
+                }
+                IconButton(onClick = { /* do something */ }) {
+                    Icon(
+                        Icons.Filled.Build,
+                        contentDescription = "Localized description",
+                    )
+                }
+                IconButton(onClick = { /* do something */ }) {
+                    Icon(
+                        Icons.Filled.ShoppingCart,
+                        contentDescription = "Localized description",
+                    )
+                }
+            }, floatingActionButton = {
+                FloatingActionButton(
+                    onClick = {
+                        //关闭抽屉
+                        scope.launch {
+                            if (drawerState.isOpen) {
+                                drawerState.close()
+                            } else if (drawerState.isClosed) {
+                                drawerState.open()
+                            }
                         }
-                    }
-                },
-                containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
-                elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
-            ) {
-                Icon(Icons.Filled.Add, "Localized description")
-            }
-        })
-    }) { innerPadding ->
+                    },
+                    containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
+                    elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
+                ) {
+                    Icon(Icons.Filled.Add, "Localized description")
+                }
+            })
+        },
+        modifier = Modifier.safeDrawingPadding()
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)

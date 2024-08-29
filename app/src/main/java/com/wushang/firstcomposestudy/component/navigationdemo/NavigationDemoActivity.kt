@@ -3,14 +3,18 @@ package com.wushang.firstcomposestudy.component.navigationdemo
 import android.app.PendingIntent
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -49,6 +53,12 @@ import kotlinx.serialization.Serializable
 class NavigationDemoActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //官方侵入状态栏
+        enableEdgeToEdge()
+        //去掉底部导航遮罩 android10以上
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+        }
         setContent {
             generateNavigationDemo()
         }
@@ -136,7 +146,7 @@ fun generateNavigationDemo() {
         }
 
         composable(NavigationRoute.DETAIL) {
-            Text(text = "Detail Page")
+            Text(text = "Detail Page", modifier = Modifier.safeDrawingPadding())
         }
 
         composable(NavigationRoute.SETTING) {
@@ -191,7 +201,7 @@ fun generateNavigationDemo() {
 
         //类型检查，这里是object作为路由
         composable<See> {
-            Text(text = "See Page")
+            Text(text = "See Page", modifier = Modifier.safeDrawingPadding())
         }
 
         //类型检查，这里以data class作为路由，可以传入参数，但是不能太多，这这是给予支持了，但不应该传入复杂数据
@@ -199,7 +209,7 @@ fun generateNavigationDemo() {
             // 获取参数的时候，用toRoute来获得Route对象，类型就是我们定义的那个，那类型检查直接置空就好，并且深度链接用不了这种
             val profile: Profile =
                 backStackEntry.toRoute()
-            Text(text = profile.id + profile.name)
+            Text(text = profile.id + profile.name, modifier = Modifier.safeDrawingPadding())
         }
     }
 }
