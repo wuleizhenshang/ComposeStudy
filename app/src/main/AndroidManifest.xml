@@ -32,6 +32,7 @@
                     android:host="www.firstComposeStudy.com"
                     android:scheme="https"
                     android:pathPrefix="/deepLink/"/>
+                <!--pathPrefix处理域名后的，这样的操作可以浏览器输入链接跳转到的-->
             </intent-filter>
         </activity>
         <activity
